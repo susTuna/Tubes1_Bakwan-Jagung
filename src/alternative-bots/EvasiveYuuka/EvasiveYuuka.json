@@ -1,0 +1,10 @@
+{
+  "name": "EvasiveYuuka",
+  "version": "1.0",
+  "authors": ["Frederiko E."],
+  "description": "Runs indefinitely to avoid enemy with random pattern, and shoot when enemy is in range",
+  "homepage": "",
+  "countryCodes": ["id"],
+  "platform": ".Net 6.0",
+  "programmingLang": "C# 10.0"
+}
