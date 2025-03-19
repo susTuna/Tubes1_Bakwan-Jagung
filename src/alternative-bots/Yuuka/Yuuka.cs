@@ -57,11 +57,22 @@ public class Yuuka : Bot
     }
     public override void OnHitByBullet(HitByBulletEvent e)
     {
-        SetTurnRight(90);
         SetBack(10000);
+        SetTurnRight(90);
     }
 
-    public override void OnHitWall(HitWallEvent e) => SetBack(5000);
+    public override void OnHitWall(HitWallEvent e) {
+        SetBack(5000);
+        SetTurnRight(90);
+    }
+
+    public override void OnHitBot(HitBotEvent e) {
+        if (e.IsRammed) {
+            Fire(3);
+            Fire(1);
+            Fire(1);
+        }
+    }
 
     static void Main() => new Yuuka().Start();
 }
