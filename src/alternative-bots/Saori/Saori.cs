@@ -3,7 +3,7 @@ using Robocode.TankRoyale.BotApi.Events;
 using System;
 using System.Drawing;
 
-public class EvasiveYuuka : Bot
+public class Saori : Bot
 {
     private Random rng = new Random();
     private bool movingForward = true;
