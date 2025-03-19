@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EvasiveYuuka")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+334fca2a6e62a96d0add560e4ee9ed902fb81a92")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c7e1c5d4d1da322255a54ba5e39c98055764b4d")]
 [assembly: System.Reflection.AssemblyProductAttribute("EvasiveYuuka")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EvasiveYuuka")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
