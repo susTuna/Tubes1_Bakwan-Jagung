@@ -2,9 +2,9 @@
   "name": "Handoko",
   "version": "1.0",
   "authors": ["Frederiko E."],
-  "description": "Meledag",
+  "description": "A strafing bot with reactive targeting, adjusting aim based on enemy speed. Moves greedily within safe zones while reversing near edges.",
   "homepage": "",
-  "countryCodes": ["id"],
+  "countryCodes": ["id", "jp"],
   "platform": ".Net 6.0",
   "programmingLang": "C# 10.0"
 }

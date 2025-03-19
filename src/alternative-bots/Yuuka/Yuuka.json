@@ -2,9 +2,9 @@
   "name": "Yuuka",
   "version": "1.0",
   "authors": ["Frederiko E."],
-  "description": "Bot that locks on lowest enemy HP",
+  "description": "A reactive bot targeting the weakest enemy, constantly firing for energy gain, and aggressively retreating upon getting hit.",
   "homepage": "",
-  "countryCodes": ["id"],
+  "countryCodes": ["id", "jp"],
   "platform": ".Net 6.0",
   "programmingLang": "C# 10.0"
 }

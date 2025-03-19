@@ -2,9 +2,9 @@
   "name": "EvasiveYuuka",
   "version": "1.0",
   "authors": ["Frederiko E."],
-  "description": "Runs indefinitely to avoid enemy with random pattern, and shoot when enemy is in range",
+  "description": "An evasive bot using randomized movement to dodge attacks while aggressively firing at any detected enemy.",
   "homepage": "",
-  "countryCodes": ["id"],
+  "countryCodes": ["id", "jp"],
   "platform": ".Net 6.0",
   "programmingLang": "C# 10.0"
 }
