@@ -45,7 +45,6 @@ public class Ako : Bot
     public override void OnHitWall(HitWallEvent e)
     {
         SetTurnRight(90);
-        SetForward(1000);
         Rescan();
     }
 
