@@ -46,6 +46,7 @@ public class Ako : Bot
     {
         SetTurnRight(90);
         SetForward(1000);
+        Rescan();
     }
 
     public override void OnBotDeath(BotDeathEvent e)
