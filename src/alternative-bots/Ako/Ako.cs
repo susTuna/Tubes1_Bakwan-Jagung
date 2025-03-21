@@ -5,13 +5,11 @@ using System.Drawing;
 
 public class Ako : Bot
 {
-    private int targetId = -1;
     
     public Ako() : base(BotInfo.FromFile("Ako.json")) { }
 
     public override void Run()
     {
-        targetId = -1;
         BodyColor = Color.FromArgb(167, 199, 231);
         TurretColor = Color.White;
         RadarColor = Color.FromArgb(45, 62, 80);
@@ -20,46 +18,34 @@ public class Ako : Bot
 
         while (IsRunning)
         {
-            if (targetId == -1)
-            {
-                SetForward(double.PositiveInfinity);
-                SetTurnLeft(double.PositiveInfinity);
-            }
-            Go();
+            SetForward(double.PositiveInfinity);
+            SetTurnLeft(double.PositiveInfinity);
+            Rescan();
         }
     }
 
     public override void OnScannedBot(ScannedBotEvent e)
     {
-        if (targetId == -1)
-        {
-            targetId = e.ScannedBotId;
-        }
-
-        if (targetId == e.ScannedBotId)
-        {
-            FollowTarget(e);
-        }
+        FollowTarget(e);
     }
 
     public override void OnHitWall(HitWallEvent e)
     {
-        SetTurnRight(90);
+        SetBack(5000);
+        SetTurnLeft(90);
         Rescan();
     }
 
     public override void OnBotDeath(BotDeathEvent e)
     {
-        if (e.VictimId == targetId)
-        {
-            targetId = -1;
-        }
+        Rescan();
     }
 
     private void FollowTarget(ScannedBotEvent e)
     {
         Target(e.X, e.Y);
         SetForward(double.PositiveInfinity);
+        Rescan();
     }
 
     public override void OnHitBot(HitBotEvent e)
@@ -68,14 +54,13 @@ public class Ako : Bot
         Fire(3);
         Fire(3);
         Fire(3);
-        Fire(2);
         Rescan();
     }
 
     private void Target(double x, double y)
     {
         var bearing = BearingTo(x, y);
-        SetTurnLeft(bearing);;
+        SetTurnLeft(bearing);
     }
 
     static void Main() => new Ako().Start();

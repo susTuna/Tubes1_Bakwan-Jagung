@@ -2,9 +2,9 @@
   "name": "Ako",
   "version": "1.0",
   "authors": ["Frederiko E."],
-  "description": "Aggressive tracker, locks onto one enemy and pursues relentlessly.",
+  "description": "Greedy lock-on bot that targets indiscriminately.",
   "homepage": "",
-  "countryCodes": ["id", "jp"],
+  "countryCodes": ["jp"],
   "platform": ".Net 6.0",
   "programmingLang": "C# 10.0"
 }
