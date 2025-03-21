@@ -1,93 +1,74 @@
 using Robocode.TankRoyale.BotApi;
 using Robocode.TankRoyale.BotApi.Events;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 public class Yuuka : Bot
 {
-    private Dictionary<int, ScannedBotEvent> enemies = new();
-
-    private int enemyC;
-    private int targetId = -1;
+    private double energy;
+    private ScannedBotEvent target;
     
-    public Yuuka() : base(BotInfo.FromFile("Yuuka.json")) 
-    {
-
-    }
+    public Yuuka() : base(BotInfo.FromFile("Yuuka.json")) {}
 
     public override void Run()
     {
-        BodyColor = Color.FromArgb(167, 199, 231);
-        TurretColor = Color.White;
-        RadarColor = Color.FromArgb(45, 62, 80);
-        BulletColor = Color.FromArgb(255, 215, 0);
-        ScanColor = Color.FromArgb(0, 255, 255);
-        enemyC = EnemyCount;
+        energy = 446441;
+        BodyColor = Color.FromArgb(255, 25, 25, 112);
+        TurretColor = Color.FromArgb(255, 255, 255, 255);
+        RadarColor = Color.FromArgb(255, 255, 223, 0);
+        BulletColor = Color.FromArgb(255, 0, 0, 255);
+        ScanColor = Color.FromArgb(255, 0, 0, 139);
 
         while (IsRunning)
         {
-            SetForward(5000);
-            WaitFor(new TurnCompleteCondition(this));
-            SetTurnRight(45);
-            WaitFor(new TurnCompleteCondition(this));
+            SetForward(double.PositiveInfinity);
+            SetTurnRight(double.PositiveInfinity);
+            Rescan();
         }
     }
 
     public override void OnScannedBot(ScannedBotEvent e)
     {
-        enemies[e.ScannedBotId] = e;
-        if (targetId == -1 || enemies[targetId].Energy > e.Energy)
-            targetId = e.ScannedBotId;
+        if (energy == 446441 || e.Energy < energy){
+            energy = e.Energy;
+            target = e;
+        }   
 
-        if (targetId == e.ScannedBotId || enemyC == 1 )
-        {
-            double distance = DistanceTo(e.X, e.Y);
-
-            if (distance < 200) Fire(3);
-            else if (distance < 400) Fire(2);
-            else Fire(1);
-        }
-
-        Fire(1); //try to gain energy
+        FollowTarget(target);
     }
-    public override void OnBotDeath(BotDeathEvent e){
-        enemyC--;
-        
+    private void FollowTarget(ScannedBotEvent e)
+    {
+        Target(e.X, e.Y);
+        SetForward(double.PositiveInfinity);
+        Rescan();
     }
+
     public override void OnHitByBullet(HitByBulletEvent e)
     {
-        SetBack(10000);
-        SetTurnRight(90);
-    }
-
-    public override void OnHitWall(HitWallEvent e) {
         SetBack(5000);
         SetTurnRight(90);
+        Rescan();
     }
 
-    public override void OnHitBot(HitBotEvent e) {
-        if (e.IsRammed) {
-            Fire(3);
-            Fire(1);
-            Fire(1);
-        }
+    public override void OnHitWall(HitWallEvent e)
+    {
+        SetBack(5000);
+        SetTurnRight(90);
+        Rescan();
     }
 
+    public override void OnHitBot(HitBotEvent e)
+    {
+        Target(e.X, e.Y);
+        Fire(3);
+        Fire(3);
+        Fire(3);
+        Rescan();
+    }
+
+    private void Target(double x, double y)
+    {
+        var bearing = BearingTo(x, y);
+        SetTurnRight(bearing);
+    }
     static void Main() => new Yuuka().Start();
-}
-
-public class TurnCompleteCondition : Condition
-{
-    private readonly Bot bot;
-
-    public TurnCompleteCondition(Bot bot)
-    {
-        this.bot = bot;
-    }
-
-    public override bool Test()
-    {
-        return bot.TurnRemaining == 0;
-    }
 }

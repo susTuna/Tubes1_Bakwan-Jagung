@@ -2,9 +2,9 @@
   "name": "Yuuka",
   "version": "1.0",
   "authors": ["Frederiko E."],
-  "description": "A reactive bot targeting the weakest enemy, constantly firing for energy gain, and aggressively retreating upon getting hit.",
+  "description": "Greedy single-target bot based on lowest energy",
   "homepage": "",
-  "countryCodes": ["id", "jp"],
+  "countryCodes": ["jp"],
   "platform": ".Net 6.0",
   "programmingLang": "C# 10.0"
 }
