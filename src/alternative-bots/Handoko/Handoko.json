@@ -2,9 +2,9 @@
   "name": "Handoko",
   "version": "1.0",
   "authors": ["Frederiko E."],
-  "description": "A strafing bot with reactive targeting, adjusting aim based on enemy speed. Moves greedily within safe zones while reversing near edges.",
+  "description": "Greedy lock-on bot based on closest distance.",
   "homepage": "",
-  "countryCodes": ["id", "jp"],
+  "countryCodes": ["jp"],
   "platform": ".Net 6.0",
   "programmingLang": "C# 10.0"
 }

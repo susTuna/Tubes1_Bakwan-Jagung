@@ -1,87 +1,71 @@
 using Robocode.TankRoyale.BotApi;
 using Robocode.TankRoyale.BotApi.Events;
-using System;
 using System.Drawing;
 
 public class Handoko : Bot
 {
-    private bool movingForward = true;
-
+    private ScannedBotEvent target;
+    
     public Handoko() : base(BotInfo.FromFile("Handoko.json")) { }
 
     public override void Run()
     {
-        BodyColor = Color.Pink;
-        TurretColor = Color.White;
-        RadarColor = Color.Blue;
-        BulletColor = Color.Purple;
-        ScanColor = Color.Green;
+        target = null;
+        BodyColor = Color.FromArgb(255, 255, 160, 180);
+        TurretColor = Color.FromArgb(255, 255, 255, 255);
+        RadarColor = Color.FromArgb(255, 250, 140, 180);
+        BulletColor = Color.FromArgb(255, 138, 43, 226);
+        ScanColor = Color.FromArgb(255, 0, 128, 0);
+
 
         while (IsRunning)
         {
-            StrafeMovement();
-            SetForward(400000);
-            WaitFor(new TurnCompleteCondition(this));
+            SetForward(double.PositiveInfinity);
+            SetTurnLeft(double.PositiveInfinity);
+            Rescan();
         }
     }
 
     public override void OnScannedBot(ScannedBotEvent e)
     {
-        double distance = DistanceTo(e.X, e.Y);
-        double enemySpeed = e.Speed;
-        double bearing = GunBearingTo(e.X, e.Y);
-
-        double lead = enemySpeed / 12.5;  
-        if (bearing > 0) bearing += lead;
-        else bearing -= lead;
-        
-        TurnGun(bearing);
-
-        if (distance < 200) Fire(3);
-        else if (distance < 400) Fire(2);
-        else Fire(1);
+        if (target == null || DistanceTo(e.X,e.Y) < DistanceTo(target.X, target.Y))
+            target = e;
+        FollowTarget(target);
     }
 
-    private void StrafeMovement()
+    public override void OnHitWall(HitWallEvent e)
     {
-        SetTurnRight(30);
-
-        if (X < ArenaWidth * 0.25 || X > ArenaWidth * 0.75 || Y < ArenaHeight * 0.25 || Y > ArenaHeight * 0.75)
-            ReverseDirection();
+        SetBack(5000);
+        SetTurnLeft(90);
+        Rescan();
     }
 
-    public override void OnHitWall(HitWallEvent e) => ReverseDirection();
+    public override void OnBotDeath(BotDeathEvent e)
+    {
+        Rescan();
+    }
+
+    private void FollowTarget(ScannedBotEvent e)
+    {
+        Target(e.X, e.Y);
+        SetForward(double.PositiveInfinity);
+        Rescan();
+    }
 
     public override void OnHitBot(HitBotEvent e)
     {
-        double distance = DistanceTo(e.X, e.Y);
-        double bearing = GunBearingTo(e.X, e.Y);
-
-        if (distance > 50) TurnGun(bearing);
+        Target(e.X, e.Y);
         Fire(3);
-        if (e.IsRammed) ReverseDirection();
+        Fire(3);
+        Fire(3);
+        Rescan();
     }
 
-    private void ReverseDirection()
+    private void Target(double x, double y)
     {
-        movingForward = !movingForward;
-        if (movingForward) SetForward(400000);
-        else SetBack(400000);
-        SetTurnRight(90);
-    }
-
-    private void TurnGun(double bearing)
-    {
-        if (bearing < 0) TurnGunLeft(Math.Abs(bearing));
-        else TurnGunRight(bearing);
+        var bearing = BearingTo(x, y);
+        SetTurnLeft(2*bearing);
     }
 
     static void Main() => new Handoko().Start();
-}
-
-public class TurnCompleteCondition : Condition
-{
-    private readonly Bot bot;
-    public TurnCompleteCondition(Bot bot) { this.bot = bot; }
-    public override bool Test() => bot.TurnRemaining == 0;
 }
