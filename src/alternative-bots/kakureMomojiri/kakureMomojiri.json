@@ -2,9 +2,9 @@
   "name": "kakureMomojiri",
   "version": "1.0",
   "authors": [
-    "Amira"
+    "Amira", "Riko", "Natalia"
   ],
-  "description": "kakure menargetkan satu enemy dan menembak sesuai dengan energi kakure",
+  "description": "Bot with simple move, shooting targets effectively and tries to avoid walls",
   "homepage": "",
   "countryCodes": [
     "id"
