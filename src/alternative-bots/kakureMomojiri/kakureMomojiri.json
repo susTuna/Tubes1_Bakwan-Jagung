@@ -6,7 +6,7 @@
     "Riko",
     "Natalia"
   ],
-  "description": "kakure bergerak secara zig-zag menghindari enemy, dan menembak sesuai banyak energi",
+  "description": "kakure bergerak secara zig-zag menghindari enemy, meminimalisir tabrakan dengan wall karena bergerak zig-zag secara lurus, dan menembak sesuai banyak energi",
   "homepage": "",
   "countryCodes": [
     "id"
