@@ -12,14 +12,13 @@ public class Amethyst : Bot
     }
     Amethyst() : base(BotInfo.FromFile("Amethyst.json")) { }
 
-    private bool isRamming = false; // Status apakah bot sedang dalam mode ramming
-    private HashSet<int> Enemies = new HashSet<int>(); // Menyimpan daftar musuh yang telah dipindai
-    private int rammingTimeout = 0; // Menghitung berapa lama bot telah berada dalam mode ramming
-    private int maxRammingTimeout = 120; // Maksimum durasi ramming sebelum kembali defence
+    private bool isRamming = false;
+    private HashSet<int> Enemies = new HashSet<int>(); 
+    private int rammingTimeout = 0; 
+    private int maxRammingTimeout = 120; 
 
     public override void Run()
     {
-        // Tema warna bot
         BodyColor = Color.FromArgb(138, 43, 226);
         TurretColor = Color.FromArgb(230, 230, 250);
         RadarColor = Color.FromArgb(148, 0, 211);
@@ -29,7 +28,6 @@ public class Amethyst : Bot
 
         while (IsRunning)
         {
-            // Jika tidak sedang ramming atau waktu ramming telah habis, kembali ke mode defence
             if (!isRamming || rammingTimeout > maxRammingTimeout)
             {
                 isRamming = false;
@@ -43,8 +41,6 @@ public class Amethyst : Bot
                 TurnRadarRight(60); 
         }
     }
-
-    // Gerakan untuk menghindari tembakan musuh dengan menggunakan pola acak
     private void PerformAdvancedDodging()
     {
         int moveChoice = Random.Shared.Next(5);
@@ -83,7 +79,6 @@ public class Amethyst : Bot
         double distance = DistanceTo(e.X, e.Y);
         bool isSingleEnemy = NumberOfEnemies() == 1;
 
-        // Jika musuh memiliki energi rendah (≤40) atau satu-satunya musuh tersisa dan lebih lemah, aktifkan mode ramming
         if ((e.Energy <= 40 || (isSingleEnemy && Energy - e.Energy >= 20)) && distance < 250)
         {
             isRamming = true;
@@ -93,7 +88,6 @@ public class Amethyst : Bot
         }
     }
 
-    // Mengunci radar ke musuh dengan energi rendah agar bot tidak kehilangan target
     private void LockRadarOnTarget(ScannedBotEvent e)
     {
         double angleToEnemy = BearingTo(e.X, e.Y) - RadarDirection;
@@ -128,14 +122,12 @@ public class Amethyst : Bot
         return Enemies.Count;
     }
 
-    // Langsung menghindar ketika terkena tembakan
     public override void OnHitByBullet(HitByBulletEvent e)
     {
         if (!isRamming)
             PerformAdvancedDodging();
     }
 
-    // Jika menabrak dinding, lakukan manuver agar tidak terjebak
     public override void OnHitWall(HitWallEvent e)
     {
         if (isRamming)
@@ -144,7 +136,6 @@ public class Amethyst : Bot
         Forward(150 + Random.Shared.Next(-30, 30));
     }
 
-    // Jika menabrak bot lain, lakukan ramming 
     public override void OnHitBot(HitBotEvent e)
     {
         if (isRamming && e.Energy > 0)
