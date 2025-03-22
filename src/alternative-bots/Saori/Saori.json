@@ -1,10 +1,10 @@
 {
   "name": "Saori",
   "version": "1.0",
-  "authors": ["Frederiko E."],
+  "authors": ["Amira", "Riko", "Natalia"],
   "description": "An evasive bot using randomized movement to dodge attacks while aggressively firing at any detected enemy.",
   "homepage": "",
-  "countryCodes": ["id", "jp"],
+  "countryCodes": ["jp"],
   "platform": ".Net 6.0",
   "programmingLang": "C# 10.0"
 }

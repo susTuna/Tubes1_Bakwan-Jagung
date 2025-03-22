@@ -1,7 +1,7 @@
 {
   "name": "Handoko",
   "version": "1.0",
-  "authors": ["Frederiko E."],
+  "authors": ["Amira", "Riko", "Natalia"],
   "description": "Greedy lock-on bot based on closest distance.",
   "homepage": "",
   "countryCodes": ["jp"],
