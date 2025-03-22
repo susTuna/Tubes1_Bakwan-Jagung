@@ -1,0 +1,10 @@
+{
+  "name": "Yuuka",
+  "version": "1.0",
+  "authors": ["Frederiko E."],
+  "description": "Greedy single-target bot based on lowest energy",
+  "homepage": "",
+  "countryCodes": ["jp"],
+  "platform": ".Net 6.0",
+  "programmingLang": "C# 10.0"
+}

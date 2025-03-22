@@ -1,0 +1,10 @@
+{
+  "name": "Handoko",
+  "version": "1.0",
+  "authors": ["Frederiko E."],
+  "description": "Greedy lock-on bot based on closest distance.",
+  "homepage": "",
+  "countryCodes": ["jp"],
+  "platform": ".Net 6.0",
+  "programmingLang": "C# 10.0"
+}
