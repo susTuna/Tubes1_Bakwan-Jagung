@@ -5,12 +5,14 @@ using System.Drawing;
 public class Handoko : Bot
 {
     private ScannedBotEvent target;
+    private int enemy;
     
     public Handoko() : base(BotInfo.FromFile("Handoko.json")) { }
 
     public override void Run()
     {
         target = null;
+        enemy = EnemyCount;
         BodyColor = Color.FromArgb(255, 255, 160, 180);
         TurretColor = Color.FromArgb(255, 255, 255, 255);
         RadarColor = Color.FromArgb(255, 250, 140, 180);
@@ -28,7 +30,7 @@ public class Handoko : Bot
 
     public override void OnScannedBot(ScannedBotEvent e)
     {
-        if (target == null || DistanceTo(e.X,e.Y) < DistanceTo(target.X, target.Y))
+        if (target == null || DistanceTo(e.X,e.Y) < DistanceTo(target.X, target.Y) || enemy == 1)
             target = e;
         FollowTarget(target);
     }
@@ -42,6 +44,7 @@ public class Handoko : Bot
 
     public override void OnBotDeath(BotDeathEvent e)
     {
+        enemy--;
         Rescan();
     }
 

@@ -5,6 +5,7 @@ using System.Drawing;
 public class Yuuka : Bot
 {
     private double energy;
+    private int enemy;
     private ScannedBotEvent target;
     
     public Yuuka() : base(BotInfo.FromFile("Yuuka.json")) {}
@@ -12,6 +13,7 @@ public class Yuuka : Bot
     public override void Run()
     {
         energy = 446441;
+        enemy = EnemyCount;
         BodyColor = Color.FromArgb(255, 25, 25, 112);
         TurretColor = Color.FromArgb(255, 255, 255, 255);
         RadarColor = Color.FromArgb(255, 255, 223, 0);
@@ -28,7 +30,7 @@ public class Yuuka : Bot
 
     public override void OnScannedBot(ScannedBotEvent e)
     {
-        if (energy == 446441 || e.Energy < energy){
+        if (energy == 446441 || e.Energy < energy || enemy == 1){
             energy = e.Energy;
             target = e;
         }   
@@ -42,17 +44,16 @@ public class Yuuka : Bot
         Rescan();
     }
 
-    public override void OnHitByBullet(HitByBulletEvent e)
+    public override void OnHitWall(HitWallEvent e)
     {
         SetBack(5000);
         SetTurnRight(90);
         Rescan();
     }
 
-    public override void OnHitWall(HitWallEvent e)
+    public override void OnBotDeath(BotDeathEvent e)
     {
-        SetBack(5000);
-        SetTurnRight(90);
+        enemy--;
         Rescan();
     }
 
