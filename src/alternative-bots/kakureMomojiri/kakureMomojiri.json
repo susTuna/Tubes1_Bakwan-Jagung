@@ -1,0 +1,14 @@
+{
+  "name": "kakureMomojiri",
+  "version": "1.0",
+  "authors": [
+    "Amira"
+  ],
+  "description": "kakure menargetkan satu enemy dan menembak sesuai dengan energi kakure",
+  "homepage": "",
+  "countryCodes": [
+    "id"
+  ],
+  "platform": ".Net",
+  "programmingLang": "C#"
+}
