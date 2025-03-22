@@ -20,9 +20,6 @@ public class kakureMomojiri : Bot
         RadarColor = Color.Pink;
         BulletColor = Color.Fuchsia;
 
-        AdjustRadarForBodyTurn = true;
-        AdjustGunForBodyTurn = true;
-
         while (IsRunning)
         {
 
@@ -37,56 +34,37 @@ public class kakureMomojiri : Bot
 
     public override void OnScannedBot(ScannedBotEvent e)
     {
-        var bearingFromGun = GunBearingTo(e.X, e.Y); ;
+        TurnGunLeft(GunBearingTo(e.X, e.Y));
 
-
-        TurnGunRight(bearingFromGun);
-
-        if (Math.Abs(bearingFromGun) <= 3)
+        if (Math.Abs(GunBearingTo(e.X, e.Y)) <= 2.5 && GunHeat == 0 && Energy > 10)
         {
-            if (GunHeat == 0 && Energy > 0.2)
-            {
-                Fire(Math.Min(3 - Math.Abs(bearingFromGun), Energy - .1));
-            }
-        }
-        else
-        {
-            SetTurnGunRight(bearingFromGun);
+            Fire(Math.Min(2.5, Energy - .1));
         }
 
-        Forward(100);
-        Back(100);
-        if (bearingFromGun == 0)
-        {
+        if (GunBearingTo(e.X, e.Y) == 0)
             Rescan();
-        }
-
-
-
-
     }
+
 
 
     public override void OnHitBot(HitBotEvent e)
     {
-        SetTurnLeft(30);
-        Back(100);
-        SetTurnRight(90);
-        Back(100);
+        SetTurnLeft(90);
+        Forward(200);
     }
 
 
     public override void OnHitByBullet(HitByBulletEvent e)
     {
         TurnRight(30);
-        Forward(150);
+        Forward(200);
     }
 
 
     public override void OnHitWall(HitWallEvent e)
     {
         SetTurnLeft(90);
-        Forward(100);
+        Forward(150);
     }
 
     public int CloseToWall()
@@ -116,41 +94,18 @@ public class kakureMomojiri : Bot
 
     public void Radar()
     {
-        SetTurnRadarRight(360);
+        TurnRadarRight(360);
     }
 
     public void AvoidWalls(int closeToWall)
     {
         if (closeToWall > 0)
         {
-            SetTurnLeft(30);
-            Back(100);
-            SetTurnRight(90);
-            Back(100);
+            SetTurnLeft(90);
+            Forward(150);
 
             closeToWall = 0;
 
-
-
-            // if (X <= 60) 
-            // {
-            //     TurnLeft(-Direction);
-            // }
-            // else if (X >= ArenaWidth - 60) 
-            // {
-            //     TurnRight(Direction);
-            // }
-            // else if (Y <= 60) 
-            //     TurnLeft(-(Direction+90));
-            // }
-
-            // else if (Y >= ArenaHeight - 60) 
-            // {
-            //     TurnRight(Direction);
-            // }
-
-
-            // Forward(100);
 
         }
 
