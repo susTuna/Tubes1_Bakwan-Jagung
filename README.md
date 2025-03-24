@@ -3,7 +3,7 @@ Tugas Besar 1 IF2211 Strategi Algoritma -  Greedy <br>
 Robocode Tank Royale github : https://github.com/robocode-dev/tank-royale
 
 <p align="center">
-  <img height="360px" src="https://ibb.co.com/1GQKKr30" alt="foto"/>
+  <img height="360px" src="https://i.ibb.co.com/7tCVVnHS/1742800772597.jpg" alt="foto"/>
   <br>
   <a><i><sup>Kelompok "Bakwan Jagung"</sup></i></a>
 </p>
